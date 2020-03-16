@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:10.5
+    volumes:
+      - '../../database/postgresql/data'
+    environment:
+      - POSTGRES_DB=tecnowallet
+      - POSTGRES_USER=userroot
+      - POSTGRES_PASSWORD=2y12ifbDibd5HTpPUhVYWT0uKogLA26CplJ4xYbv0nO3SW03M5Xkc5G
+    ports:
+      - '5432:5432'
