@@ -1,7 +1,8 @@
 import http from 'http';
 import app from './app';
 import './bootstrap';
+const { APP_PORT } = process.env;
 
 const server = http.createServer(app);
 
-server.listen(process.env.APP_PORT);
+server.listen(APP_PORT);

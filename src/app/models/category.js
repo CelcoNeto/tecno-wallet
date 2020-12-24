@@ -18,5 +18,4 @@ class Category extends Model {
     this.belongsTo(models.User, { foreignKey: 'user_id' });
   }
 }
-
-export default Category;
+export { Category };

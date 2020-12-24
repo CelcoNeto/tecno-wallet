@@ -1,17 +1,13 @@
 import * as Yup from 'yup';
-import User from '../models/User';
-import UserExceptions from '../../utils/exceptions/UserExceptions';
+import { userExceptions } from '../../utils/exceptions/user-exceptions';
+import { User } from '../models/user';
 
 class UserValidators {
   async validationStoreUser(user) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
-      email: Yup.string()
-        .email()
-        .required(),
-      password: Yup.string()
-        .required()
-        .min(6),
+      email: Yup.string().email().required(),
+      password: Yup.string().required().min(6),
       confirmPassword: Yup.string()
         .min(6)
         .when('password', (password, field) =>
@@ -19,8 +15,8 @@ class UserValidators {
         ),
     });
 
-    await schema.validate(user, { abortEarly: false }).catch(async err => {
-      throw UserExceptions.UserStoreValidationException(err.errors);
+    await schema.validate(user, { abortEarly: false }).catch(async (err) => {
+      throw userExceptions.UserStoreValidationException(err.errors);
     });
   }
 
@@ -41,8 +37,8 @@ class UserValidators {
         ),
     });
 
-    await schema.validate(user, { abortEarly: false }).catch(async err => {
-      throw UserExceptions.UserStoreValidationException(err.errors);
+    await schema.validate(user, { abortEarly: false }).catch(async (err) => {
+      throw userExceptions.UserStoreValidationException(err.errors);
     });
 
     await this.validateUpdatedUserInformation(user);
@@ -51,7 +47,7 @@ class UserValidators {
   async validadeIfEmailExists(email) {
     const userExists = await User.findOne({ where: { email } });
     if (userExists) {
-      throw UserExceptions.UserAlreadyExistsException(email);
+      throw userExceptions.UserAlreadyExistsException(email);
     }
   }
 
@@ -70,7 +66,7 @@ class UserValidators {
 
   validateIfUserExists(user) {
     if (!user) {
-      throw UserExceptions.UserNotFoundException();
+      throw userExceptions.UserNotFoundException();
     }
   }
 
@@ -82,9 +78,9 @@ class UserValidators {
 
   async checkUserPassword(oldPassword, findedUser) {
     if (!(await findedUser.checkPassword(oldPassword))) {
-      throw UserExceptions.PasswordDoesNotMatchException();
+      throw userExceptions.PasswordDoesNotMatchException();
     }
   }
 }
 
-export default new UserValidators();
+export const userValidators = new UserValidators();

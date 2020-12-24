@@ -1,18 +1,17 @@
 import jwt from 'jsonwebtoken';
-
-import User from '../models/User';
 import authConfig from '../../config/auth';
-import SessionValidators from '../validators/SessionValidators';
+import { User } from '../models/user';
+import { sessionValidators } from '../validators/session-validators';
 
 class SessionService {
   async store(credentials) {
-    await SessionValidators.validationAuthShape(credentials);
+    await sessionValidators.validationAuthShape(credentials);
 
     const { email, password } = credentials;
     const user = await User.findOne({ where: { email } });
 
-    await SessionValidators.validationIfUserExists(user);
-    await SessionValidators.verifyPasswordIsEqual(user, password);
+    await sessionValidators.validationIfUserExists(user);
+    await sessionValidators.verifyPasswordIsEqual(user, password);
 
     const { id, name } = user;
 
@@ -29,4 +28,4 @@ class SessionService {
   }
 }
 
-export default new SessionService();
+export const sessionService = new SessionService();

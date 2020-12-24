@@ -1,5 +1,5 @@
-import CategoryValidators from '../validators/CategoryValidators';
-import Category from '../../app/models/Category';
+import { Category } from '../models/category';
+import { categoryValidators } from '../validators/category-validators';
 
 class CategoriesService {
   async index() {
@@ -17,7 +17,7 @@ class CategoriesService {
   }
 
   async store(category) {
-    await CategoryValidators.validateCategoryYup(category);
+    await categoryValidators.validateCategoryYup(category);
 
     const { descricao } = await Category.create(category);
 
@@ -29,8 +29,8 @@ class CategoriesService {
   async update(categoryId, categoryUpdate) {
     const category = await Category.findByPk(categoryId);
 
-    await CategoryValidators.validateCategoryExists(category);
-    await CategoryValidators.validateCategoryYup(categoryUpdate);
+    await categoryValidators.validateCategoryExists(category);
+    await categoryValidators.validateCategoryYup(categoryUpdate);
 
     await Category.update(categoryUpdate, {
       where: {
@@ -43,4 +43,4 @@ class CategoriesService {
   }
 }
 
-export default new CategoriesService();
+export const categoriesService = new CategoriesService();

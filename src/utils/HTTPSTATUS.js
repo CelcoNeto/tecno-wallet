@@ -5,7 +5,7 @@ const UNAUTHORIZED = 401;
 const UNPROCESSABLE_ENTITY = 422;
 const INTERNAL_SERVER_ERROR = 500;
 
-export default {
+export {
   BAD_REQUEST,
   OK,
   CREATED,

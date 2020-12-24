@@ -1,19 +1,19 @@
-import HTTPSTATUS from '../HTTPSTATUS';
+import { BAD_REQUEST, UNPROCESSABLE_ENTITY } from '../HTTPSTATUS';
 
 class SessionExceptions {
   UserAlreadyExistsException(email) {
     return JSON.stringify({
-      status: HTTPSTATUS.BAD_REQUEST,
+      status: BAD_REQUEST,
       errors: [`User with email ${email} already exists.`],
     });
   }
 
   UserAuthException(errors) {
     return JSON.stringify({
-      status: HTTPSTATUS.UNPROCESSABLE_ENTITY,
+      status: UNPROCESSABLE_ENTITY,
       errors,
     });
   }
 }
 
-export default new SessionExceptions();
+export const sessionExceptions = new SessionExceptions();

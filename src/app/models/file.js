@@ -16,4 +16,4 @@ class File extends Model {
   }
 }
 
-export default File;
+export { File };

@@ -1,19 +1,19 @@
-import HTTPSTATUS from '../HTTPSTATUS';
+import { BAD_REQUEST, UNPROCESSABLE_ENTITY } from '../HTTPSTATUS';
 
 class CategoryExceptions {
   CategoryValidationException(errors) {
     return JSON.stringify({
-      status: HTTPSTATUS.UNPROCESSABLE_ENTITY,
+      status: UNPROCESSABLE_ENTITY,
       errors,
     });
   }
 
   CategoryNotFoundException() {
     return JSON.stringify({
-      status: HTTPSTATUS.BAD_REQUEST,
+      status: BAD_REQUEST,
       errors: ['Category not found'],
     });
   }
 }
 
-export default new CategoryExceptions();
+export const categoryExceptions = new CategoryExceptions();

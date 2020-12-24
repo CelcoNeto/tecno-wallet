@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:13
 
 LABEL maintainer="Celco Roxa <celcoroxa@gmail.com>"
 

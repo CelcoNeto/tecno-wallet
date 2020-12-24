@@ -1,20 +1,17 @@
 import * as Yup from 'yup';
-import UserExceptions from '../../utils/exceptions/UserExceptions';
-import SessionExceptions from '../../utils/exceptions/SessionExceptions';
+import { sessionExceptions } from '../../utils/exceptions/session-exceptions';
 
 class SessionValidators {
   async validationAuthShape(credentials) {
     const schema = Yup.object().shape({
-      email: Yup.string()
-        .email()
-        .required(),
+      email: Yup.string().email().required(),
       password: Yup.string().required(),
     });
 
     await schema
       .validate(credentials, { abortEarly: false })
-      .catch(async err => {
-        throw SessionExceptions.UserAuthException(err.errors);
+      .catch(async (err) => {
+        throw sessionExceptions.UserAuthException(err.errors);
       });
   }
 
@@ -31,4 +28,4 @@ class SessionValidators {
   }
 }
 
-export default new SessionValidators();
+export const sessionValidators = new SessionValidators();

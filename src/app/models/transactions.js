@@ -21,4 +21,4 @@ class Transactions extends Model {
     this.belongsTo(models.Category, { foreignKey: 'category_id' });
   }
 }
-export default Transactions;
+export { Transactions };

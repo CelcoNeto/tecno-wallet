@@ -1,10 +1,10 @@
-import User from '../models/User';
-import UserValidators from '../validators/UserValidators';
+import { User } from '../models/user';
+import { userValidators } from '../validators/user-validators';
 
 class UserService {
   async store(user) {
-    await UserValidators.validationStoreUser(user);
-    await UserValidators.validadeIfEmailExists(user.email);
+    await userValidators.validationStoreUser(user);
+    await userValidators.validadeIfEmailExists(user.email);
 
     const newUser = await User.create(user);
 
@@ -18,7 +18,7 @@ class UserService {
   }
 
   async update(user) {
-    await UserValidators.validationUpdateUser(user);
+    await userValidators.validationUpdateUser(user);
 
     const findedUser = await User.findByPk(user.id);
 
@@ -31,4 +31,4 @@ class UserService {
   }
 }
 
-export default new UserService();
+export const userService = new UserService();
