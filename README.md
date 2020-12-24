@@ -6,6 +6,7 @@
 - Testes de integração
 - Validações (yup)
 - Autenticação de usuário (jwt)
+- Logger (Youch)
 
 # Observação
 
