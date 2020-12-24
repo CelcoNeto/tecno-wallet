@@ -23,15 +23,22 @@
 - Abra uma nova aba de terminal e execute o comando `yarn sequelize db:migrate` para criação das tabelas no banco de dados.
 
 - Crie um arquivo na raiz `.env` com as seguintes configurações:
-  APP_URL=http://localhost:3333
-  NODE_ENV=development
-  APP_PORT=3333
 
-DB_DIALECT=postgres
-DB_HOST=localhost
-DB_NAME=tecnowallet
-DB_USER=userroot
-DB_PASS=2y12ifbDibd5HTpPUhVYWT0uKogLA26CplJ4xYbv0nO3SW03M5Xkc5G
+`APP_URL=http://localhost:3333`
+
+`NODE_ENV=development`
+
+`APP_PORT=3333`
+
+`DB_DIALECT=postgres`
+
+`DB_HOST=localhost`
+
+`DB_NAME=tecnowallet`
+
+`DB_USER=userroot`
+
+`DB_PASS=2y12ifbDibd5HTpPUhVYWT0uKogLA26CplJ4xYbv0nO3SW03M5Xkc5G`
 
 - Crie um usuário com os campos:
   `name: STRING, email: STRING, password: VIRTUAL, password_hash: STRING,`
