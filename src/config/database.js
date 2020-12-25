@@ -1,6 +1,6 @@
 require("../bootstrap");
 
-export const connection = {
+module.exports = {
   dialect: process.env.DB_DIALECT,
   host: process.env.DB_HOST,
   username: process.env.DB_USER,

@@ -1,10 +1,10 @@
-import Sequelize, { Model } from 'sequelize';
+import Sequelize, { Model } from "sequelize";
 
 class Category extends Model {
   static init(sequelize) {
     super.init(
       {
-        descricao: Sequelize.STRING,
+        description: Sequelize.STRING,
       },
       {
         sequelize,
@@ -15,7 +15,7 @@ class Category extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.User, { foreignKey: 'user_id' });
+    this.belongsTo(models.User, { foreignKey: "user_id" });
   }
 }
 export { Category };

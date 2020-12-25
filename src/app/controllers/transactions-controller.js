@@ -1,18 +1,18 @@
-import { CREATED } from '../../utils/HTTPSTATUS';
-import { transactionsService } from '../services/transactions-service';
+import { CREATED } from "../../utils/HTTPSTATUS";
+import { transactionsService } from "../services/transactions-service";
 
 class TransactionsController {
   async store(req, res) {
     try {
-      const payment = await transactionsService.store({
+      const transaction = await transactionsService.store({
         ...req.body,
         user_id: req.userId,
       });
 
-      return res.status(CREATED).json(payment);
+      return res.status(CREATED).json(transaction);
     } catch (error) {
-      const errorMessage = JSON.parse(error);
-      return res.status(error.status).json(errorMessage);
+      const { status, errors } = JSON.parse(error);
+      return res.status(status).json({ errors });
     }
   }
 }

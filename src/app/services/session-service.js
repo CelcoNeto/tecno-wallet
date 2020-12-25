@@ -1,12 +1,11 @@
-import jwt from 'jsonwebtoken';
-import authConfig from '../../config/auth';
-import { User } from '../models/user';
-import { sessionValidators } from '../validators/session-validators';
+import jwt from "jsonwebtoken";
+import authConfig from "../../config/auth";
+import { User } from "../models/user";
+import { sessionValidators } from "../validators/session-validators";
 
 class SessionService {
   async store(credentials) {
     await sessionValidators.validationAuthShape(credentials);
-
     const { email, password } = credentials;
     const user = await User.findOne({ where: { email } });
 

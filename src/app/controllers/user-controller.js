@@ -7,7 +7,8 @@ class UserController {
       const user = await userService.store(req.body);
       return res.status(CREATED).json(user);
     } catch (error) {
-      return res.status(error.status).json(error);
+      const { status, errors } = JSON.parse(error);
+      return res.status(status).json({ errors });
     }
   }
 
@@ -16,8 +17,8 @@ class UserController {
       const updatedUser = await userService.update(req.body);
       return res.status(OK).json(updatedUser);
     } catch (error) {
-      const errorMessage = JSON.parse(error);
-      return res.status(error.status).json(errorMessage);
+      const { status, errors } = JSON.parse(error);
+      return res.status(status).json({ errors });
     }
   }
 
@@ -26,8 +27,8 @@ class UserController {
       await userService.confirmUserEmail(req.body);
       return res.status(OK).json();
     } catch (error) {
-      const errorMessage = JSON.parse(error);
-      return res.status(error.status).json(errorMessage);
+      const { status, errors } = JSON.parse(error);
+      return res.status(status).json({ errors });
     }
   }
 }

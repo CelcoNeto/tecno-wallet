@@ -1,5 +1,5 @@
-import { CREATED, OK } from '../../utils/HTTPSTATUS';
-import { categoriesService } from '../services/categories-service';
+import { CREATED, OK } from "../../utils/HTTPSTATUS";
+import { categoriesService } from "../services/categories-service";
 
 class CategoriesController {
   async showAll(req, res) {
@@ -7,8 +7,8 @@ class CategoriesController {
       const categorys = await categoriesService.index();
       return res.status(OK).json(categorys);
     } catch (error) {
-      const errorMessage = JSON.parse(error);
-      return res.status(error.status).json(errorMessage);
+      const { status, errors } = JSON.parse(error);
+      return res.status(status).json({ errors });
     }
   }
 
@@ -22,8 +22,8 @@ class CategoriesController {
       const category = await categoriesService.show(params);
       return res.status(OK).json(category);
     } catch (error) {
-      const errorMessage = JSON.parse(error);
-      return res.status(error.status).json(errorMessage);
+      const { status, errors } = JSON.parse(error);
+      return res.status(status).json({ errors });
     }
   }
 
@@ -36,8 +36,8 @@ class CategoriesController {
 
       return res.status(CREATED).json(category);
     } catch (error) {
-      const errorMessage = JSON.parse(error);
-      return res.status(error.status).json(errorMessage);
+      const { status, errors } = JSON.parse(error);
+      return res.status(status).json({ errors });
     }
   }
 
@@ -51,8 +51,8 @@ class CategoriesController {
 
       return res.status(OK).json(category);
     } catch (error) {
-      const errorMessage = JSON.parse(error);
-      return res.status(error.status).json(errorMessage);
+      const { status, errors } = JSON.parse(error);
+      return res.status(status).json({ errors });
     }
   }
 }

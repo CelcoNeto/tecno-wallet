@@ -1,5 +1,5 @@
-import { Category } from '../models/category';
-import { categoryValidators } from '../validators/category-validators';
+import { Category } from "../models/category";
+import { categoryValidators } from "../validators/category-validators";
 
 class CategoriesService {
   async index() {
@@ -18,11 +18,10 @@ class CategoriesService {
 
   async store(category) {
     await categoryValidators.validateCategoryYup(category);
-
-    const { descricao } = await Category.create(category);
+    const { description } = await Category.create(category);
 
     return {
-      descricao,
+      description,
     };
   }
 

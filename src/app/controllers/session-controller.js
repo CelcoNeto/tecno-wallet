@@ -1,5 +1,5 @@
-import { OK } from '../../utils/HTTPSTATUS';
-import { sessionService } from '../services/session-service';
+import { OK } from "../../utils/HTTPSTATUS";
+import { sessionService } from "../services/session-service";
 
 class SessionController {
   async store(req, res) {
@@ -7,8 +7,8 @@ class SessionController {
       const user = await sessionService.store(req.body);
       return res.status(OK).json(user);
     } catch (error) {
-      const errorMessage = JSON.parse(error);
-      return res.status(error.status).json(errorMessage);
+      const { status, errors } = JSON.parse(error);
+      return res.status(status).json({ errors });
     }
   }
 }

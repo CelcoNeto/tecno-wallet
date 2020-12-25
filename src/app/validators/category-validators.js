@@ -1,10 +1,10 @@
-import * as Yup from 'yup';
-import { categoryExceptions } from '../../utils/exceptions/category-exceptions';
+import * as Yup from "yup";
+import { categoryExceptions } from "../../utils/exceptions/category-exceptions";
 
 class CategoryValidators {
   async validateCategoryYup(category) {
     const schema = Yup.object().shape({
-      descricao: Yup.string().required(),
+      description: Yup.string().required(),
       user_id: Yup.number().required(),
     });
 

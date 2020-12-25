@@ -3,12 +3,9 @@ import { userValidators } from "../validators/user-validators";
 
 class UserService {
   async store(user) {
-    // await userValidators.validationStoreUser(user);
-    // await userValidators.validadeIfEmailExists(user.email);
-    const newUser = await User.create(user).catch((error) =>
-      console.log(error)
-    );
-    console.log("NEW USER ->", newUser);
+    await userValidators.validationStoreUser(user);
+    await userValidators.validadeIfEmailExists(user.email);
+    const newUser = await User.create(user);
     const { id, name, email } = newUser;
 
     return {
