@@ -41,7 +41,9 @@
 `DB_PASS=2y12ifbDibd5HTpPUhVYWT0uKogLA26CplJ4xYbv0nO3SW03M5Xkc5G`
 
 - Crie um usuário com os campos:
-  `name: STRING, email: STRING, password: VIRTUAL, password_hash: STRING,`
+  `name: STRING`,
+  `email: STRING`,
+  `password: VIRTUAL`
   - Em seguida autentique o usuário com os campos :
     `name: STRING, password: STRING`
 - Dentro do diretório do projeto, abra o arquivo `swagger.conf.json` para a documentação da API.

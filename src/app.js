@@ -1,11 +1,11 @@
-import cors from 'cors';
-import express from 'express';
-import 'express-async-errors';
-import Youch from 'youch';
-import './bootstrap';
-import './database';
-import { routes } from './routes';
-import { INTERNAL_SERVER_ERROR } from './utils/HTTPSTATUS';
+import cors from "cors";
+import express from "express";
+import "express-async-errors";
+import Youch from "youch";
+import "./bootstrap";
+import "./database";
+import { routes } from "./routes";
+import { INTERNAL_SERVER_ERROR } from "./utils/HTTPSTATUS";
 const { NODE_ENV } = process.env;
 
 class App {
@@ -28,15 +28,13 @@ class App {
 
   exceptionHandler() {
     this.server.use(async (error, req, res, next) => {
-      if (NODE_ENV === 'development') {
+      if (NODE_ENV === "development") {
         const errors = await new Youch(error, req).toJSON();
-
         return res.status(INTERNAL_SERVER_ERROR).json(errors);
       }
-
       return res
         .status(INTERNAL_SERVER_ERROR)
-        .json({ error: 'Internal server error' });
+        .json({ error: "Internal server error" });
     });
   }
 }

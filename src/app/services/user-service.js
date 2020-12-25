@@ -1,13 +1,14 @@
-import { User } from '../models/user';
-import { userValidators } from '../validators/user-validators';
+import { User } from "../models/user";
+import { userValidators } from "../validators/user-validators";
 
 class UserService {
   async store(user) {
-    await userValidators.validationStoreUser(user);
-    await userValidators.validadeIfEmailExists(user.email);
-
-    const newUser = await User.create(user);
-
+    // await userValidators.validationStoreUser(user);
+    // await userValidators.validadeIfEmailExists(user.email);
+    const newUser = await User.create(user).catch((error) =>
+      console.log(error)
+    );
+    console.log("NEW USER ->", newUser);
     const { id, name, email } = newUser;
 
     return {

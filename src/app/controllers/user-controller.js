@@ -1,5 +1,5 @@
-import { CREATED, OK } from '../../utils/HTTPSTATUS';
-import { userService } from '../services/user-service';
+import { CREATED, OK } from "../../utils/HTTPSTATUS";
+import { userService } from "../services/user-service";
 
 class UserController {
   async store(req, res) {
@@ -7,8 +7,7 @@ class UserController {
       const user = await userService.store(req.body);
       return res.status(CREATED).json(user);
     } catch (error) {
-      const errorMessage = JSON.parse(error);
-      return res.status(error.status).json(errorMessage);
+      return res.status(error.status).json(error);
     }
   }
 

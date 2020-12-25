@@ -1,4 +1,4 @@
-import { BAD_REQUEST, UNAUTHORIZED, UNPROCESSABLE_ENTITY } from '../HTTPSTATUS';
+import { BAD_REQUEST, UNAUTHORIZED, UNPROCESSABLE_ENTITY } from "../HTTPSTATUS";
 
 class UserExceptions {
   UserAlreadyExistsException(email) {
@@ -11,7 +11,7 @@ class UserExceptions {
   PasswordDoesNotMatchException() {
     return JSON.stringify({
       status: UNAUTHORIZED,
-      errors: ['Password does not match.'],
+      errors: ["Password does not match."],
     });
   }
 
@@ -32,7 +32,7 @@ class UserExceptions {
   UserNotFoundException() {
     return JSON.stringify({
       status: BAD_REQUEST,
-      errors: ['User not found.'],
+      errors: ["User not found."],
     });
   }
 

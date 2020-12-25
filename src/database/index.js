@@ -1,9 +1,9 @@
-import Sequelize from 'sequelize';
-import { Category } from '../app/models/category';
-import { File } from '../app/models/file';
-import { Transactions } from '../app/models/transactions';
-import { User } from '../app/models/user';
-import databaseConfig from '../config/database';
+import Sequelize from "sequelize";
+import { Category } from "../app/models/category";
+import { File } from "../app/models/file";
+import { Transactions } from "../app/models/transactions";
+import { User } from "../app/models/user";
+import { connection } from "../config/database";
 
 const models = [User, File, Category, Transactions];
 
@@ -13,7 +13,7 @@ class Database {
   }
 
   init() {
-    this.connection = new Sequelize(databaseConfig);
+    this.connection = new Sequelize(connection);
 
     models
       .map((model) => model.init(this.connection))
