@@ -15,7 +15,7 @@ const upload = multer(multerConfig);
 
 routes.use('/api/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 routes.post('/api/users', userController.store);
-routes.post('/api/files', upload.single('file'), { fileController }.store);
+routes.post('/api/files', upload.single('file'), fileController.store);
 routes.post('/api/login', sessionController.store);
 
 routes.use(authMiddlware);
