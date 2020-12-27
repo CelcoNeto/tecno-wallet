@@ -1,7 +1,7 @@
-import * as Yup from 'yup';
-import { categoryExceptions } from '../../utils/exceptions/category-exceptions';
-import { transactionsExceptions } from '../../utils/exceptions/transactions-exceptions';
-import { userExceptions } from '../../utils/exceptions/user-exceptions';
+import * as Yup from "yup";
+import { categoryExceptions } from "../../utils/exceptions/category-exceptions";
+import { transactionsExceptions } from "../../utils/exceptions/transactions-exceptions";
+import { userExceptions } from "../../utils/exceptions/user-exceptions";
 
 class TransactionsValidators {
   async validationTransactionsShape(transactions) {

@@ -26,6 +26,7 @@ routes.get("/api/categories", categoriesController.showAll);
 routes.post("/api/categories", categoriesController.store);
 routes.get("/api/categories/:id", categoriesController.show);
 routes.put("/api/categories/:id", categoriesController.update);
+routes.get("/api/resume", transactionsController.resume);
 
 routes.post("/api/transactions", transactionsController.store);
 

@@ -26,6 +26,27 @@ class TransactionsService {
       date,
     };
   }
+
+  _paymentsFilter = (transaction) => transaction.type === "PAGAMENTO";
+  _receivementsFilter = (transaction) => transaction.type === "RECEBIMENTO";
+  _reducer = (accumulator, payment) => accumulator + payment.value;
+
+  async resume() {
+    const transactions = await Transactions.findAll();
+    const payments = transactions
+      .filter(this._paymentsFilter)
+      .reduce(this._reducer, 0);
+    const deposits = transactions
+      .filter(this._receivementsFilter)
+      .reduce(this._reducer, 0);
+    const resume = {
+      deposits,
+      value_of_payments: payments,
+      total_balance: deposits - payments,
+      movements_of_the_day: transactions.length,
+    };
+    return resume;
+  }
 }
 
 export const transactionsService = new TransactionsService();

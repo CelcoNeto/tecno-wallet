@@ -18,7 +18,9 @@ class CategoriesService {
 
   async store(category) {
     await categoryValidators.validateCategoryYup(category);
-    const { description } = await Category.create(category);
+    const { description } = await Category.create(category).catch((error) =>
+      console.log(error)
+    );
 
     return {
       description,

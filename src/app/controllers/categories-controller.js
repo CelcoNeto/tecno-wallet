@@ -16,7 +16,6 @@ class CategoriesController {
     try {
       const params = {
         id: req.params.id,
-        user_id: req.userId,
       };
 
       const category = await categoriesService.show(params);
@@ -29,10 +28,7 @@ class CategoriesController {
 
   async store(req, res) {
     try {
-      const category = await categoriesService.store({
-        ...req.body,
-        user_id: req.userId,
-      });
+      const category = await categoriesService.store(req.body);
 
       return res.status(CREATED).json(category);
     } catch (error) {
@@ -44,10 +40,7 @@ class CategoriesController {
   async update(req, res) {
     try {
       const { id } = req.params;
-      const category = await categoriesService.update(id, {
-        ...req.body,
-        user_id: req.userId,
-      });
+      const category = await categoriesService.update(id, req.body);
 
       return res.status(OK).json(category);
     } catch (error) {

@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('transactions', {
+    return queryInterface.createTable("transactions", {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -13,17 +13,17 @@ module.exports = {
       },
       user_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'users', key: 'id' },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
+        references: { model: "users", key: "id" },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
         allowNull: false,
         unique: false,
       },
       category_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'users', key: 'id' },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
+        references: { model: "categories", key: "id" },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
         allowNull: false,
         unique: false,
       },
@@ -37,7 +37,7 @@ module.exports = {
       },
       type: {
         type: Sequelize.ENUM,
-        values: ['RECEBIMENTO', 'PAGAMENTO'],
+        values: ["RECEBIMENTO", "PAGAMENTO"],
         allowNull: false,
       },
       created_at: {
@@ -51,7 +51,7 @@ module.exports = {
     });
   },
 
-  down: queryInterface => {
-    return queryInterface.dropTable('transactions');
+  down: (queryInterface) => {
+    return queryInterface.dropTable("transactions");
   },
 };

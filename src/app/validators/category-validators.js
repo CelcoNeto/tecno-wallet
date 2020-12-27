@@ -5,7 +5,6 @@ class CategoryValidators {
   async validateCategoryYup(category) {
     const schema = Yup.object().shape({
       description: Yup.string().required(),
-      user_id: Yup.number().required(),
     });
 
     await schema
