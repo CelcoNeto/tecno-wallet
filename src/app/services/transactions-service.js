@@ -44,7 +44,7 @@ class TransactionsService {
       .reduce(this._reducer, 0);
 
     const movimentations = transactions.map((transaction) => ({
-      data: transaction.created_at,
+      data: transaction._previousDataValues.created_at,
       id: transaction.id,
       type: transaction.type,
       categoria: transaction.Category,
