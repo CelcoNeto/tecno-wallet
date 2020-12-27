@@ -17,9 +17,7 @@ class UserService {
 
   async update(user) {
     await userValidators.validationUpdateUser(user);
-
     const findedUser = await User.findByPk(user.id);
-
     const { id, name } = await findedUser.update(user);
 
     return {

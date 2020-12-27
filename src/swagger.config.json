@@ -7,25 +7,16 @@
   },
   "host": "http://localhost:3333",
   "basePath": "/api",
-  "schemes": [
-    "https",
-    "http"
-  ],
+  "schemes": ["https", "http"],
   "paths": {
     "/files": {
       "post": {
-        "tags": [
-          "Files"
-        ],
+        "tags": ["Files"],
         "summary": "uploads an image",
         "description": "",
         "operationId": "uploadFile",
-        "consumes": [
-          "multipart/form-data"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "file",
@@ -47,17 +38,11 @@
     },
     "/users": {
       "post": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Create new user",
         "description": "Create a new user registration",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -91,17 +76,11 @@
         }
       },
       "put": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Update an existing user",
         "description": "",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "Authorization",
@@ -141,16 +120,12 @@
         }
       }
     },
-    "auth": {
+    "/login": {
       "post": {
-        "tags": [
-          "auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Login in application",
         "description": "",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -169,6 +144,119 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/AuthResponse"
+              }
+            }
+          },
+          "422": {
+            "description": "Validations errors",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ErrorObject"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transactions": {
+      "post": {
+        "tags": ["Transactions"],
+        "summary": "Transactions in application",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Transaction object that needs to be transaction in service.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Transaction"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TransactionResponse"
+              }
+            }
+          },
+          "422": {
+            "description": "Validations errors",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ErrorObject"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories": {
+      "post": {
+        "tags": ["Categories"],
+        "summary": "Categories in application",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Categories object that needs to be categories in service.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Categories"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CategoriesResponse"
+              }
+            }
+          },
+          "422": {
+            "description": "Validations errors",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ErrorObject"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/resume": {
+      "get": {
+        "tags": ["Resume"],
+        "summary": "Resume of transactions in application",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Resume of transaction object that needs to be transaction in service."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ResumeResponse"
               }
             }
           },
@@ -223,13 +311,32 @@
         }
       }
     },
-    "User": {
+    "Transaction": {
       "type": "object",
       "properties": {
-        "id": {
+        "category_id": {
           "type": "integer",
           "format": "int64"
         },
+        "description": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number",
+          "format": "double"
+        },
+        "type": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "YYYY-MM-DD HH:mm:ss"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
         "name": {
           "type": "string"
         },
@@ -237,13 +344,50 @@
           "type": "string"
         },
         "avatar_id": {
-          "type": "string"
+          "type": "integer"
         },
         "password": {
           "type": "string"
         },
-        "confirmPassword": {
+        "confirm_password": {
           "type": "string"
+        }
+      }
+    },
+    "Categories": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "CategoriesResponse": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "ResumeResponse": {
+      "type": "object",
+      "properties": {
+        "deposits": {
+          "type": "number",
+          "format": "double"
+        },
+        "value_of_payments": {
+          "type": "number",
+          "format": "double"
+        },
+        "total_balance": {
+          "type": "number",
+          "format": "double"
+        },
+        "movements_of_the_day": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -262,6 +406,30 @@
         },
         "email": {
           "type": "string"
+        }
+      }
+    },
+    "TransactionResponse": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "format": "int64"
+        },
+        "value": {
+          "type": "number",
+          "format": "double"
+        },
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "type": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "YYYY-MM-DD HH:mm:ss"
         }
       }
     },
