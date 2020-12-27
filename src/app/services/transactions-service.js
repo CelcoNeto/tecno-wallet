@@ -32,18 +32,29 @@ class TransactionsService {
   _reducer = (accumulator, payment) => accumulator + payment.value;
 
   async resume() {
-    const transactions = await Transactions.findAll();
+    const transactions = await Transactions.findAll({
+      include: [{ model: Category, attributes: ["id", "description"] }],
+      attributes: ["id", "type", "value", "description", "created_at"],
+    });
     const payments = transactions
       .filter(this._paymentsFilter)
       .reduce(this._reducer, 0);
     const deposits = transactions
       .filter(this._receivementsFilter)
       .reduce(this._reducer, 0);
+
+    const movimentations = transactions.map((transaction) => ({
+      data: transaction.created_at,
+      id: transaction.id,
+      type: transaction.type,
+      categoria: transaction.Category,
+      valor: transaction.value,
+      descricao: transaction.description,
+    }));
+
     const resume = {
-      deposits,
-      value_of_payments: payments,
-      total_balance: deposits - payments,
-      movements_of_the_day: transactions.length,
+      saldoTotal: deposits - payments,
+      movimentacoes: movimentations,
     };
     return resume;
   }

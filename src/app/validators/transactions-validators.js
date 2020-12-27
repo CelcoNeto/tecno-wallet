@@ -10,7 +10,6 @@ class TransactionsValidators {
       value: Yup.number().required(),
       category_id: Yup.number().required(),
       type: Yup.string().required(),
-      date: Yup.date().required(),
     });
 
     await schema

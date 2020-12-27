@@ -1,4 +1,4 @@
-import Sequelize, { Model } from 'sequelize';
+import Sequelize, { Model } from "sequelize";
 
 class Transactions extends Model {
   static init(sequelize) {
@@ -8,8 +8,7 @@ class Transactions extends Model {
         category_id: Sequelize.INTEGER,
         description: Sequelize.STRING,
         value: Sequelize.FLOAT,
-        type: Sequelize.ENUM(['RECEBIMENTO', 'PAGAMENTO']),
-        date: Sequelize.DATE,
+        type: Sequelize.ENUM(["RECEBIMENTO", "PAGAMENTO"]),
       },
       { sequelize }
     );
@@ -17,8 +16,8 @@ class Transactions extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.User, { foreignKey: 'user_id' });
-    this.belongsTo(models.Category, { foreignKey: 'category_id' });
+    this.belongsTo(models.User, { foreignKey: "user_id" });
+    this.belongsTo(models.Category, { foreignKey: "category_id" });
   }
 }
 export { Transactions };
