@@ -27,23 +27,33 @@ class TransactionsService {
     };
   }
 
-  _paymentsFilter = (transaction) => transaction.type === "PAGAMENTO";
-  _receivementsFilter = (transaction) => transaction.type === "RECEBIMENTO";
+  _transactionFilter = (transaction, type) => transaction.type === type;
   _reducer = (accumulator, payment) => accumulator + payment.value;
 
   async resume() {
+    const transactions = await this._findAllTransactions();
+    const payments = this._searchTransaction(transactions, "PAGAMENTO");
+    const deposits = this._searchTransaction(transactions, "RECEBIMENTO");
+
+    const movimentations = this._buildMovimentationObject(transactions);
+
+    const resume = {
+      saldoTotal: deposits - payments,
+      movimentacoes: movimentations,
+    };
+    return resume;
+  }
+
+  async _findAllTransactions() {
     const transactions = await Transactions.findAll({
       include: [{ model: Category, attributes: ["id", "description"] }],
       attributes: ["id", "type", "value", "description", "created_at"],
     });
-    const payments = transactions
-      .filter(this._paymentsFilter)
-      .reduce(this._reducer, 0);
-    const deposits = transactions
-      .filter(this._receivementsFilter)
-      .reduce(this._reducer, 0);
+    return transactions;
+  }
 
-    const movimentations = transactions.map((transaction) => ({
+  _buildMovimentationObject(transactions) {
+    return transactions.map((transaction) => ({
       data: transaction._previousDataValues.created_at,
       id: transaction.id,
       type: transaction.type,
@@ -51,12 +61,11 @@ class TransactionsService {
       valor: transaction.value,
       descricao: transaction.description,
     }));
-
-    const resume = {
-      saldoTotal: deposits - payments,
-      movimentacoes: movimentations,
-    };
-    return resume;
+  }
+  _searchTransaction(transactions, type) {
+    return transactions
+      .filter((transaction) => this._transactionFilter(transaction, type))
+      .reduce(this._reducer, 0);
   }
 }
 
