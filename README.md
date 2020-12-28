@@ -10,8 +10,6 @@
 
 # Observação
 
-- Faltou implementar a rota de resumo, devido ao débito técnico e nível de conhecimento onde fui estudando e fazendo.
-
 - Faltou implementar alguns testes de integração
 
 # Get Started
