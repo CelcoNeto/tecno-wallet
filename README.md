@@ -54,3 +54,5 @@
   - Copie este token, cole em uma variavel de ambiente do `Insomnia/Postman` e use a authentication _Bearer_ e referencie o token.
 
 * Dentro do diretório do projeto, abra o arquivo `swagger.conf.json` para a documentação da API.
+
+* Dentro do diretório do projeto possui a collection do `Insomnia` para testes.
